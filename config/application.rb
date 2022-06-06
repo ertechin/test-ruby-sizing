@@ -14,6 +14,12 @@ require "action_view/railtie"
 require "action_cable/engine"
 # require "rails/test_unit/railtie"
 
+begin
+  require 'sassc-rails'
+rescue LoadError
+  require 'sass-rails'
+end
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -23,6 +29,8 @@ module TacRuby
     config.application_name = Rails.application.class.module_parent_name
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+
+    config.assets.css_compressor = nil
 
     # Configuration for the application, engines, and railties goes here.
     #
