@@ -41,6 +41,7 @@ ActiveAdmin.register User do
   # confirm_admin_user_path
   member_action :confirm, method: :get do
     user = User.find params[:id]
+    user.send_confirmed_email if user.confirmed == false
     user.update(confirmed: true)
     redirect_to admin_users_path
   end
@@ -48,4 +49,5 @@ ActiveAdmin.register User do
   member_action :reject, method: :get do
     redirect_to admin_users_path
   end
+
 end
