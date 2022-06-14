@@ -1,0 +1,38 @@
+# clone:
+#   depth: full
+#
+# pipelines:
+#   branches:
+#     main:
+#       - step:
+#           name: Create the tarball to push to Heroku
+#           script:
+#             - git archive --format=tar.gz main -o tac-ruby.tar.gz
+#           artifacts:
+#             - tac-ruby.tar.gz
+#       - step:
+#           name: Deploy to Heroku
+#           script:
+#             - pipe: atlassian/heroku-deploy:1.2.1
+#               variables:
+#                 HEROKU_API_KEY: $HEROKU_API_KEY
+#                 HEROKU_APP_NAME: $HEROKU_APP_NAME
+#                 ZIP_FILE: "tac-ruby.tar.gz"
+#   custom:
+#     run-command:
+#       - variables:
+#         - name: CUSTOM_COMMAND
+#       - step:
+#           name: "Run command"
+#           script:
+#             - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+#             - heroku run $CUSTOM_COMMAND --app tac-ruby
+#
+#     run-heroku-command:
+#       - variables:
+#         - name: CUSTOM_COMMAND
+#       - step:
+#           name: "Run heroku command"
+#           script:
+#             - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+#             - heroku $CUSTOM_COMMAND --app tac-ruby
