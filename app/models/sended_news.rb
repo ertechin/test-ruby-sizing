@@ -1,0 +1,2 @@
+class SendedNews < ApplicationRecord
+end
