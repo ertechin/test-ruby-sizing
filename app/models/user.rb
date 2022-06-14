@@ -9,4 +9,8 @@ class User < ApplicationRecord
     self.jti ||= SecureRandom.uuid
   end
 
+  def send_confirmed_email
+    UserMailer.with(user: self).send("confirm_email").deliver_now
+  end
+
 end
