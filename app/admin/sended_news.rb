@@ -1,7 +1,6 @@
 ActiveAdmin.register SendedNews do
   filter :context
   filter :title
-  filter :phone
   filter :tag
 
   actions :index, :show
@@ -22,13 +21,15 @@ ActiveAdmin.register SendedNews do
 
       panel "Images" do
         columns do
-          sended_news.images.slice(1..-2).split(",").each do |image|
-            column do
-              link_to(image_tag("https://tac-mobile.herokuapp.com/newsPhotos/" + image),
-              "https://tac-mobile.herokuapp.com/newsPhotos/" + image, download: "#{image}")
+          if sended_news.images.present?
+            sended_news.images.slice(1..-2).split(",").each do |image|
+              column do
+                link_to(image_tag("https://tac-mobile.herokuapp.com/newsPhotos/" + image),
+                "https://tac-mobile.herokuapp.com/newsPhotos/" + image, download: "#{image}")
+              end
             end
           end
-
+          
         end
       end
 
