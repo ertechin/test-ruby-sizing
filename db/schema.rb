@@ -82,17 +82,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_08_202239) do
     t.string "token"
     t.string "phone"
     t.string "profile_image"
-    t.string "fullname"
+    t.string "full_name"
     t.string "job"
     t.string "city"
     t.string "country"
     t.string "about"
-    t.integer "gyear"
-    t.boolean "contactinfo", default: true
-    t.boolean "confirmed"
+    t.integer "g_year"
+    t.boolean "contact_info", default: true
+    t.boolean "is_confirmed"
     t.boolean "mail_activeted"
     t.boolean "is_admin"
     t.boolean "is_deleted"
+    t.string "kvkk_confirmed_date"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
