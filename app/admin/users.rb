@@ -1,29 +1,29 @@
 ActiveAdmin.register User do
-  filter :fullname
+  filter :full_name
   filter :email
   filter :phone
-  filter :gyear
+  filter :g_year
 
   actions :index, :show
   index do
-    column "Name", :fullname
+    column "Name", :full_name
     column :email
     column :phone
-    column :gyear
-    column "Confirmed", :confirmed
+    column :g_year
+    column "Confirmed", :is_confirmed
     actions
   end
 
   show do
     attributes_table do
       row "Name" do |user|
-        user.fullname
+        user.full_name
       end
       row :email
       row :phone
-      row :gyear
+      row :g_year
       row "Confirmed" do |user|
-        user.confirmed
+        user.is_confirmed
       end
       panel "Onayla/Reddet" do
         columns do
@@ -41,8 +41,8 @@ ActiveAdmin.register User do
   # confirm_admin_user_path
   member_action :confirm, method: :get do
     user = User.find params[:id]
-    user.send_confirmed_email if user.confirmed == false
-    user.update(confirmed: true)
+    user.send_confirmed_email if user.is_confirmed == false
+    user.update(is_confirmed: true)
     redirect_to admin_users_path
   end
 
