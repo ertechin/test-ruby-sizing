@@ -7,9 +7,9 @@ pipelines:
       - step:
           name: Create the tarball to push to Heroku
           script:
-            - git archive --format=tar.gz main -o test-tac.tar.gz
+            - git archive --format=tar.gz main -o tac-ruby.tar.gz
           artifacts:
-            - test-tac.tar.gz
+            - tac-ruby.tar.gz
       - step:
           name: Deploy to Heroku
           script:
@@ -17,7 +17,7 @@ pipelines:
               variables:
                 HEROKU_API_KEY: $HEROKU_API_KEY
                 HEROKU_APP_NAME: $HEROKU_APP_NAME
-                ZIP_FILE: "test-tac.tar.gz"
+                ZIP_FILE: "tac-ruby.tar.gz"
   custom:
     run-command:
       - variables:
@@ -26,7 +26,7 @@ pipelines:
           name: "Run command"
           script:
             - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-            - heroku run $CUSTOM_COMMAND --app test-tac
+            - heroku run $CUSTOM_COMMAND --app tac-ruby
 
     run-heroku-command:
       - variables:
@@ -35,4 +35,4 @@ pipelines:
           name: "Run heroku command"
           script:
             - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-            - heroku $CUSTOM_COMMAND --app test-tac
+            - heroku $CUSTOM_COMMAND --app tac-ruby
