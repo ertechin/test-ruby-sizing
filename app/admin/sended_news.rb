@@ -22,14 +22,14 @@ ActiveAdmin.register SendedNews do
       panel "Images" do
         columns do
           if sended_news.images.present?
-            sended_news.images.slice(1..-2).split(",").each do |image|
+            sended_news.images.each do |image|
               column do
                 link_to(image_tag("https://tac-mobile.herokuapp.com/newsPhotos/" + image),
                 "https://tac-mobile.herokuapp.com/newsPhotos/" + image, download: "#{image}")
               end
             end
           end
-          
+
         end
       end
 
