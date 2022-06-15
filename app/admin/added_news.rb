@@ -21,8 +21,8 @@ ActiveAdmin.register AddedNews do
                           }
       f.input :context, :as => :select, :collection => ["Güzel Haber", "Etkinlik", "Vefat Haberi"]
       f.input :description, as: :quill_editor
-      f.input :title
-      f.input :tag, as: :text
+      f.input :title, as: :string
+      f.input :tag
     end
     f.actions
   end
@@ -41,7 +41,7 @@ ActiveAdmin.register AddedNews do
       panel "Images" do
         columns do
           if added_news.images.present?
-            added_news.images.slice(1..-2).split(",").each do |image|
+            added_news.images.each do |image|
               column do
                 link_to(image_tag("https://tac-mobile.herokuapp.com/newsPhotos/" + image),
                 "https://tac-mobile.herokuapp.com/newsPhotos/" + image, download: "#{image}")
