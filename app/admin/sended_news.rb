@@ -24,7 +24,7 @@ ActiveAdmin.register SendedNews do
           if sended_news.images.present?
             sended_news.images.each do |image|
               column do
-                link_to(image_tag("https://tac-mobile.herokuapp.com/newsPhotos/" + image),
+                link_to(image_tag("https://tac-mobile.herokuapp.com/newsPhotos/" + image, style: 'height:100px;width:100px;'),
                 "https://tac-mobile.herokuapp.com/newsPhotos/" + image, download: "#{image}")
               end
             end
