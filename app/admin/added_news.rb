@@ -7,23 +7,23 @@ ActiveAdmin.register AddedNews do
   filter :tag
 
   index do
-    column :date
-    column :context
     column :title
+    column :description
+    column :date
     column :tag
     actions
   end
 
   form do |f|
-    f.inputs "Added News Edit" do
+    f.inputs "Duyurular Edit" do
+      f.input :tag, :as => :select, :collection => ["Güzel Haber", "Etkinlik", "Vefat Haberi"]
+      f.input :title, as: :string
+      f.input :description, as: :text
       f.input :date, as: :datepicker,
                           datepicker_options: {
                             min_date: "1960-10-8"
                           }
-      f.input :context, :as => :select, :collection => ["Güzel Haber", "Etkinlik", "Vefat Haberi"]
-      f.input :description, as: :quill_editor
-      f.input :title, as: :string
-      f.input :tag
+      f.input :context, as: :quill_editor
       f.input :images
     end
     f.actions
@@ -32,13 +32,13 @@ ActiveAdmin.register AddedNews do
 
   show do
     attributes_table do
-      row :date
-      row :context
-      row "Description" do
-        added_news.description.html_safe
-      end
-      row :title
       row :tag
+      row :title
+      row :description
+      row :date
+      row "Context" do
+        added_news.context.html_safe
+      end
 
       panel "Images" do
         columns do
