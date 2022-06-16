@@ -1,5 +1,5 @@
 ActiveAdmin.register AddedNews do
-  permit_params :date, :context, :description, :title, :tag
+  permit_params :date, :context, :description, :title, :tag, :images
 
   filter :context
   filter :title
@@ -23,6 +23,7 @@ ActiveAdmin.register AddedNews do
       f.input :description, as: :quill_editor
       f.input :title, as: :string
       f.input :tag
+      f.input :images
     end
     f.actions
   end
@@ -36,7 +37,7 @@ ActiveAdmin.register AddedNews do
         added_news.description.html_safe
       end
       row :title
-      row :tagg
+      row :tag
 
       panel "Images" do
         columns do
