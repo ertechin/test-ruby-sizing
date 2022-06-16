@@ -11,6 +11,7 @@ ActiveAdmin.register User do
     column :phone
     column :g_year
     column "Confirmed", :is_confirmed
+    column :is_deleted
     actions
   end
 
@@ -43,10 +44,14 @@ ActiveAdmin.register User do
     user = User.find params[:id]
     user.send_confirmed_email if user.is_confirmed == false
     user.update(is_confirmed: true)
+    user.update(is_deleted: false)
     redirect_to admin_users_path
   end
 
   member_action :reject, method: :get do
+    user = User.find params[:id]
+    user.update(is_deleted: true)
+    user.update(is_confirmed: false)
     redirect_to admin_users_path
   end
 

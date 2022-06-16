@@ -1,26 +1,32 @@
 ActiveAdmin.register Donation do
   permit_params :gyear, :class_count, :donate_count
 
-  filter :gyear
-  filter :class_count
-  filter :donate_count
+  filter :gyear, label: "Mezuniyet Yılı"
+  filter :class_count, label: "Mezun sayısı"
+  filter :donate_count, label: "Aidat ödeyen sayısı"
 
   config.sort_order = 'gyear_asc'
 
-  actions :index, :edit, :show
-
   index do
-    column :gyear
-    column :class_count
-    column :donate_count
+    column "Mezuniyet Yılı", :gyear
+    column "Mezun sayısı", :class_count
+    column "Aidat ödeyen sayısı", :donate_count
     actions
   end
 
   show do
     attributes_table do
-      row :gyear
-      row :class_count
-      row :donate_count
+      row "Mezuniyet Yılı" do
+        donation.gyear
+      end
+
+      row "Mezun sayısı" do
+        donation.class_count
+      end
+
+      row "Aidat ödeyen sayısı" do
+        donation.donate_count
+      end
     end
   end
 
