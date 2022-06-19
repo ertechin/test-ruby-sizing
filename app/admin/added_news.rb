@@ -1,10 +1,14 @@
 ActiveAdmin.register AddedNews do
-  permit_params :date, :context, :description, :title, :tag, :images
+  permit_params :date, :context, :description, :title, :tag, images: []
   menu label: "Duyurular"
 
   filter :context
   filter :title
   filter :tag
+
+  after_update do |news|
+    news.update_images_urls
+  end
 
   index do
     column :title
@@ -24,7 +28,7 @@ ActiveAdmin.register AddedNews do
                             min_date: "1960-10-8"
                           }
       f.input :context, as: :quill_editor
-      f.input :images
+      f.input :images, as: :file, input_html: { multiple: true }
     end
     f.actions
   end
@@ -44,16 +48,14 @@ ActiveAdmin.register AddedNews do
         columns do
           if added_news.images.present?
             added_news.images.each do |image|
-              unless image.nil?
-                column do
-                  link_to(image_tag("https://tac-mobile.herokuapp.com/newsPhotos/" + image, style: 'height:100px;width:100px;'),
-                  "https://tac-mobile.herokuapp.com/newsPhotos/" + image, download: "#{image}")
-                end
+              column do
+                link_to(image_tag(image, style: 'width:200px;'), url_for(image), download: "")
               end
             end
           end
+
         end
-      end
+      end # Panel
 
     end
   end
