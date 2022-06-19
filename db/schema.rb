@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_19_195707) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_19_204140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_195707) do
     t.integer "gyear"
     t.integer "class_count", default: 0
     t.integer "donate_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "news", force: :cascade do |t|
+    t.string "link"
+    t.string "date"
+    t.string "title"
+    t.string "description"
+    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
