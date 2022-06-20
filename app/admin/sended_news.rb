@@ -11,6 +11,8 @@ ActiveAdmin.register SendedNews do
     column :description
     column :title
     column :tag
+    column :date
+    column :user_name
     actions
   end
 
@@ -20,16 +22,16 @@ ActiveAdmin.register SendedNews do
       row :description
       row :title
       row :tag
+      row :date
+      row :user_name
+      row :user_gyear
 
       panel "Images" do
         columns do
-          if sended_news.images.present?
+          if sended_news.images.attached?
             sended_news.images.each do |image|
-              unless image.nil?
-                column do
-                  link_to(image_tag("https://tac-mobile.herokuapp.com/newsPhotos/" + image, style: 'height:100px;width:100px;'),
-                  "https://tac-mobile.herokuapp.com/newsPhotos/" + image, download: "#{image}")
-                end
+              column do
+                link_to(image_tag(image, style: 'width:200px;'), url_for(image), download: "")
               end
             end
           end

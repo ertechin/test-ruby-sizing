@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   # API namespace, for JSON requests at /api/sign_[in|out]
   namespace :api do
-
+    resources :added_news
+    post "/create_sended_news", to: "sended_news#create_sended_news"
     devise_for :users, defaults: { format: :json },
     class_name: 'ApiUser',
     skip: [:registrations, :invitations,
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
           delete 'logout', to: 'devise/sessions#destroy'
         end
   end
-  
+
   root to: "home#index"
 
 end
