@@ -11,6 +11,8 @@ ActiveAdmin.register SendedNews do
     column :description
     column :title
     column :tag
+    column :date
+    column :user_name
     actions
   end
 
@@ -20,6 +22,9 @@ ActiveAdmin.register SendedNews do
       row :description
       row :title
       row :tag
+      row :date
+      row :user_name
+      row :user_gyear
 
       panel "Images" do
         columns do
