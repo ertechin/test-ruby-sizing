@@ -1,0 +1,12 @@
+<u><%= link_to "Admin Ekranına Geri Dön", admin_added_news_path(@added_new.id), style: "white-space: nowrap;"%></u>
+<%= form_with url: sort_images_added_news_path(@added_new.id), data: { turbo: false }, html: {style: "width:100%"} do |f| %>
+  <% @images.order(:position).each do |image| %>
+    <div style="float: left;margin-left:20px">
+      <%= image_tag image, style: "width:200px;height:200px;margin-left:10px" %>
+      <%= f.select "sort_image[]", get_image_indexes(@images.count, image.position), {selected: image.position}, {style: "width:200px;margin-left:10px;margin-top:10px"} %>
+      <%= f.hidden_field "image_ids[]", value: image.id %>
+    </div>
+  <% end %>
+
+  <%= f.submit "Kaydet", style: "margin-left:10px;" %>
+<% end %>

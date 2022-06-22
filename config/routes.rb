@@ -25,6 +25,10 @@ Rails.application.routes.draw do
         end
   end
 
-  root to: "home#index"
 
+
+  root to: "home#index"
+  resources :added_news do
+    post "sort_images", on: :member
+  end
 end
