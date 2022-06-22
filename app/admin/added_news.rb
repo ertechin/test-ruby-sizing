@@ -44,10 +44,15 @@ ActiveAdmin.register AddedNews do
         added_news.context.html_safe
       end
 
+      row "DÜZENLE" do
+        link_to "Görselleri Düzenle", edit_added_news_path(added_news.id)
+      end
+
       panel "Images" do
         columns do
+
           if added_news.images.present?
-            added_news.images.each do |image|
+            added_news.images.order(:position).each do |image|
               column do
                 link_to(image_tag(image, style: 'width:200px;'), url_for(image), download: "")
               end
