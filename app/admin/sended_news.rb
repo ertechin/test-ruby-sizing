@@ -8,7 +8,6 @@ ActiveAdmin.register SendedNews do
   actions :index, :show
   index do
     column :context
-    column :description
     column :title
     column :tag
     column :date
@@ -19,7 +18,6 @@ ActiveAdmin.register SendedNews do
   show do
     attributes_table do
       row :context
-      row :description
       row :title
       row :tag
       row :date
