@@ -11,4 +11,16 @@ class Api::SendedNewsController < ApiController
         }}
     end
   end
+
+  def get_images
+    response = SendedNews.get_images(request)
+    respond_to do |format|
+      format.json { render json: {
+        status: 200,
+        response_message: "Success",
+        response_body: response,
+        request_id: request.request_id
+        }}
+    end
+  end
 end

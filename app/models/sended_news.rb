@@ -25,6 +25,30 @@ class SendedNews < ApplicationRecord
     news.save!
   end
 
+  def self.get_images(params)
+
+    if params["model_type"] == "sended_news"
+      model = SendedNews.find(params["id"])
+      record_type = "SendedNews"
+    elsif params["model_type"] == "added_news"
+      model = SendedNews.find(params["id"])
+      record_type = "AddedNews"
+    end
+
+    images_urls = ActiveStorage::Attachment.where(record_type: record_type, record_id: params["id"])
+
+    if images_urls.any?
+
+      deneme = []
+      images_urls.each do |image|
+        p "===============> "
+        deneme << image.url
+      end
+      deneme
+    end
+
+  end
+
   def acceptable_image
     return unless images.attached?
 
