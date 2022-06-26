@@ -6,7 +6,7 @@ class Api::SendedNewsController < ApiController
     respond_to do |format|
       format.json { render json: {
         status: 200,
-        response_message: "Basarili",
+        response_message: "Success",
         request_id: request.request_id
         }}
     end

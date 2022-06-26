@@ -4,7 +4,7 @@ class ApiUser < User
   validates :jti, presence: true
   def generate_jwt
     JWT.encode({ id: id,
-                exp: 5.days.from_now.to_i },
+                exp: 30.days.from_now.to_i },
                Rails.env.devise.jwt.secret_key)
   end
 end

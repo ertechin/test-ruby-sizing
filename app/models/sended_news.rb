@@ -15,7 +15,6 @@ class SendedNews < ApplicationRecord
   def self.create_self(params)
     news = SendedNews.new(
                           context: params[:context],
-                          description: params[:description],
                           title: params[:title],
                           tag: params[:tag],
                           date: params[:date],
