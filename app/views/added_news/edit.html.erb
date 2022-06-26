@@ -4,6 +4,7 @@
     <div style="float: left;margin-left:20px">
       <%= image_tag image, style: "width:200px;height:200px;margin-left:10px" %>
       <%= f.select "sort_image[]", get_image_indexes(@images.count, image.position), {selected: image.position}, {style: "width:200px;margin-left:10px;margin-top:10px"} %>
+      <%= link_to "Sil", delete_image_added_news_path(image.id), class: "btn btn-xs" %>
       <%= f.hidden_field "image_ids[]", value: image.id %>
     </div>
   <% end %>

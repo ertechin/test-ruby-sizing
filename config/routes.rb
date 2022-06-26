@@ -33,5 +33,6 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :added_news do
     post "sort_images", on: :member
+    get "delete_image", on: :member
   end
 end
