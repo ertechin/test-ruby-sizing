@@ -8,4 +8,9 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "TAC Email Onaylandı")
   end
 
+  def welcome_email
+    @url = params[:url]
+    mail(to: params[:user_email], subject: "TAC Mobile'a Hosgeldiniz")
+  end
+
 end

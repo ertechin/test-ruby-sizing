@@ -15,7 +15,6 @@ class SendedNews < ApplicationRecord
   def self.create_self(params)
     news = SendedNews.new(
                           context: params[:context],
-                          description: params[:description],
                           title: params[:title],
                           tag: params[:tag],
                           date: params[:date],
@@ -24,6 +23,27 @@ class SendedNews < ApplicationRecord
                         )
     news.images.attach(params[:images])
     news.save!
+  end
+
+  def self.get_images(params)
+
+    if params["model_type"] == "sended_news"
+      model = SendedNews.find(params["id"])
+      record_type = "SendedNews"
+    elsif params["model_type"] == "added_news"
+      model = AddedNews.find(params["id"])
+      record_type = "AddedNews"
+    end
+
+    images_urls = ActiveStorage::Attachment.where(record_type: record_type, record_id: params["id"])
+
+    if images_urls.any?
+      return_urls = images_urls.map do |image|
+        image.url
+      end
+      return_urls
+    end
+
   end
 
   def acceptable_image

@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   namespace :api do
     resources :added_news
     post "/create_sended_news", to: "sended_news#create_sended_news"
+    post "/get_images", to: "sended_news#get_images"
     post "/upload_profile_image", to: "users#upload_profile_image"
+    post "/send_email", to: "users#send_email"
     devise_for :users, defaults: { format: :json },
     class_name: 'ApiUser',
     skip: [:registrations, :invitations,

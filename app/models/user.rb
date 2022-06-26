@@ -36,4 +36,8 @@ class User < ApplicationRecord
     end
   end
 
+  def self.send_welcome_mail(params)
+    UserMailer.with(params).send("welcome_email").deliver_now
+  end
+
 end
