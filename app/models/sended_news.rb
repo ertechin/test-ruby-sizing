@@ -31,20 +31,17 @@ class SendedNews < ApplicationRecord
       model = SendedNews.find(params["id"])
       record_type = "SendedNews"
     elsif params["model_type"] == "added_news"
-      model = SendedNews.find(params["id"])
+      model = AddedNews.find(params["id"])
       record_type = "AddedNews"
     end
 
     images_urls = ActiveStorage::Attachment.where(record_type: record_type, record_id: params["id"])
 
     if images_urls.any?
-
-      deneme = []
-      images_urls.each do |image|
-        p "===============> "
-        deneme << image.url
+      return_urls = images_urls.map do |image|
+        image.url
       end
-      deneme
+      return_urls
     end
 
   end
