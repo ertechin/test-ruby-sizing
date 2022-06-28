@@ -26,8 +26,10 @@ Rails.application.routes.draw do
           get 'login', to: 'sessions#create'
           delete 'logout', to: 'devise/sessions#destroy'
         end
+        namespace :v1 do
+          post "/takeDonations", to: "donations#take_donations"
+      end
   end
-
 
 
   root to: "home#index"
