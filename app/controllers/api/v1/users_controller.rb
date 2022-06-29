@@ -1,4 +1,4 @@
-class Api::UsersController < ApiController
+class Api::V1::UsersController < ApiController
   respond_to :json
 
   def upload_profile_image
