@@ -1,0 +1,1 @@
+json.search_result @search_result
