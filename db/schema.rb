@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_26_210750) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_01_123638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,7 +63,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_210750) do
     t.string "description"
     t.string "title"
     t.string "tag"
-    t.string "images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "image_urls", default: [], array: true
@@ -113,7 +112,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_210750) do
     t.string "jti", null: false
     t.string "token"
     t.string "phone"
-    t.string "profile_image"
     t.string "full_name"
     t.string "job"
     t.string "city"
