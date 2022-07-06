@@ -27,14 +27,14 @@ Rails.application.routes.draw do
           post "/upload_profile_image", to: "users#upload_profile_image"
           post "/send_email", to: "users#send_email"
 
-          # for news          
-          post '/searchNews', to: 'added_news#search_news'
+          resources :added_news
+          post '/news/search', to: 'added_news#search_news'
           post '/takeNews', to: 'added_news#take_news'
-          # for donations
+          resources :donations
           post '/takeDonations', to: 'donations#take_donations'
-          # for users
+          resources :users
           post '/updateContactInfo', to: 'users#update_contact_info'
-          post '/searchUser', to: 'users#search_user'
+          post '/users/search', to: 'users#search_user'
           post '/updateUser', to: 'users#update_user_info'
           post '/forgotPassword', to: 'users#forgot_password'
           post '/register', to: 'users#register'

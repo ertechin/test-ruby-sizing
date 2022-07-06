@@ -62,17 +62,16 @@ class User < ApplicationRecord
       city: params[:city],
       country: params[:country],
       about: params[:about]
-      #profile_image: params[:profile_image]
     )
   end
 
   def self.search(params)
-    @search_result =
-      User.where("LOWER(full_name) LIKE LOWER('%#{params[:query]}%')")
-           .or(User.where("LOWER(job) LIKE LOWER('%#{params[:query]}%')"))
-           .or(User.where("LOWER(city) LIKE LOWER('%#{params[:query]}%')"))
-           .or(User.where("LOWER(country) LIKE LOWER('%#{params[:query]}%')"))
-           .and(User.where(contact_info: true))
+    User.select(:email, :phone, :full_name, :job, :city, :country, :about, :g_year)
+        .where("LOWER(full_name) LIKE LOWER('%#{params[:query]}%')")
+        .or(User.where("LOWER(job) LIKE LOWER('%#{params[:query]}%')"))
+        .or(User.where("LOWER(city) LIKE LOWER('%#{params[:query]}%')"))
+        .or(User.where("LOWER(country) LIKE LOWER('%#{params[:query]}%')"))
+        .and(User.where(contact_info: true))
   end
 
   def self.update_contact_info(params)
