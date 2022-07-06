@@ -19,7 +19,6 @@ class AddedNews < ApplicationRecord
   end
 
   def self.search(params)
-    @search_result =
       AddedNews.where("LOWER(title) LIKE LOWER('%#{params[:query]}%')")
                .or(AddedNews.where("LOWER(description) LIKE LOWER('%#{params[:query]}%')"))
                .or(AddedNews.where("LOWER(context) LIKE LOWER('%#{params[:query]}%')"))

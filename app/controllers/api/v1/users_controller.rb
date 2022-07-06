@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApiController
-  skip_before_action :check_auth, :does_tokens_match, :only => [:register]
+  skip_before_action :check_auth, :does_tokens_match, :only => [:register, :forgot_password]
   respond_to :json
 
   def login_with_token
@@ -17,6 +17,7 @@ class Api::V1::UsersController < ApiController
   def update_user_info
     User.update_user(params)
   end
+
   def update_password
     User.update_pass(params)
   end
