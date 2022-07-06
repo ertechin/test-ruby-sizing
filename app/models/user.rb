@@ -3,16 +3,39 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   has_one_attached :profile_image
 
   validate :acceptable_image
 
+  def self.save_token(email, current_token)
+    user = User.find_by(email:)
+    user.update(token: current_token)
+  end
+
+  def self.create_user(params)
+    if !User.exists?(email: params[:email])
+    user = User.new(
+      password: params[:password],
+      email: params[:email],
+      phone: params[:phone],
+      full_name: params[:full_name],
+      g_year: params[:g_year],
+      is_confirmed: false,
+      kvkk_confirmed_date: params[:kvkk_confirmed_date]
+    )
+    user.save!
+      @create_user_status = 'ok'
+    else
+      @create_user_status = 'bad'
+    end
+  end
+
   def self.forgot_password(params)
     if User.exists?(email: params[:email])
       @forgot_pw_status = true
-      @new_pw = Faker::Crypto.sha1
+      @new_pw = SecureRandom.hex
       user = User.find_by(email: params[:email])
       @user_name = user.full_name
       user.update(password: @new_pw)
@@ -20,6 +43,14 @@ class User < ApplicationRecord
     else
       @forgot_pw_which_json = false
     end
+  end
+
+  def self.update_pass(params)
+    user = User.find_by(id: params[:id])
+    user.update(
+      token: SecureRandom.hex,
+      password: params[:password]
+    )
   end
 
   def self.update_user(params)

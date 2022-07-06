@@ -1,0 +1,12 @@
+json.user_email @current_user.id
+json.email @current_user.email
+json.phone @current_user.phone
+json.profile_image @current_user.profile_image
+json.full_name @current_user.full_name
+json.job @current_user.job
+json.city @current_user.city
+json.country @current_user.country
+json.about @current_user.about
+json.g_year @current_user.g_year
+json.is_confirmed @current_user.is_confirmed
+json.contact_info @current_user.contact_info

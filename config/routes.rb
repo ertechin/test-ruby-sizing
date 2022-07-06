@@ -37,6 +37,9 @@ Rails.application.routes.draw do
           post '/searchUser', to: 'users#search_user'
           post '/updateUser', to: 'users#update_user_info'
           post '/forgotPassword', to: 'users#forgot_password'
+          post '/register', to: 'users#register'
+          post '/loginWithToken', to: 'users#login_with_token'
+          post '/updatePass', to: 'users#update_password'
         end
   end
 
