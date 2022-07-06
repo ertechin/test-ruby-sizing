@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
   before_action :set_current_user, if: :json_request?
+  before_action :does_tokens_match
   before_action :check_auth
   before_action :check_format
 
@@ -13,6 +14,20 @@ class ApiController < ApplicationController
   # So we can use Pundit policies for api_users
   def set_current_user
     @current_user ||= warden.authenticate(scope: :api_user)
+  end
+
+  def does_tokens_match
+    if @current_user.present?
+      if @current_user.token != request.headers["Authorization"]
+        render json: {
+          internal_api_status: 'bad'
+        }
+      end
+    else
+      render json: {
+        internal_api_status: 'bad'
+      }
+    end 
   end
 
   def check_auth
@@ -44,6 +59,4 @@ class ApiController < ApplicationController
       end
     end
   end
-
-
 end
