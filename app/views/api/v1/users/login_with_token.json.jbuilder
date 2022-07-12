@@ -1,7 +1,7 @@
 json.user_email @current_user.id
 json.email @current_user.email
 json.phone @current_user.phone
-json.profile_image @current_user.profile_image
+json.profile_image url_for(@current_user.profile_image)
 json.full_name @current_user.full_name
 json.job @current_user.job
 json.city @current_user.city
