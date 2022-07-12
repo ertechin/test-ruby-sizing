@@ -10,6 +10,10 @@ class Api::V1::AddedNewsController < ApiController
   end
 
   def search_news
-    @search_result = AddedNews.search(params)
+    @search_result = AddedNews.search(search_news_params)
+  end
+
+  def search_news_params
+    params.require(:api_news).permit(:query)
   end
 end

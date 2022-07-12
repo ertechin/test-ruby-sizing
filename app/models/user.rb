@@ -28,7 +28,7 @@ class User < ApplicationRecord
     user.save!
       @create_user_status = 'ok'
     else
-      @create_user_status = 'bad'
+      @create_user_status = 'user is exist'
     end
   end
 
