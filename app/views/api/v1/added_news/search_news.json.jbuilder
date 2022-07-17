@@ -1,1 +1,1 @@
-json.search_result @search_result
+json.news_data @search_result

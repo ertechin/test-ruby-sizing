@@ -10,7 +10,7 @@ class Api::V1::AddedNewsController < ApiController
   end
 
   def search_news
-    @search_result = AddedNews.search(search_news_params)
+    @search_result = AddedNews.search(params)
   end
 
   def search_news_params

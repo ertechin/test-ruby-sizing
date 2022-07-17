@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApiController
-  skip_before_action :check_auth, :does_tokens_match, only: %i[register forgot_password]
+  skip_before_action :check_auth, only: %i[register forgot_password]
   respond_to :json
 
   def login_with_token
@@ -42,6 +42,7 @@ class Api::V1::UsersController < ApiController
       format.json do
         render json: {
           status: 200,
+          current_profile_image: url_for(@current_user.profile_image),
           response_message: 'Success',
           request_id: request.request_id
         }
