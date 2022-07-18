@@ -30,7 +30,6 @@ class Api::V1::AddedNewsController < ApiController
         e.image_urls = return_urls
         res
       else
-        e.image_urls = ['null']
         res
       end
     end
