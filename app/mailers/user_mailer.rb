@@ -13,4 +13,8 @@ class UserMailer < ApplicationMailer
     mail(to: params[:user_email], subject: "TAC Mobile'a Hosgeldiniz")
   end
 
+  def forgot_password_email
+    mail(to: params[:email], subject: "TAC Mobile Yeni Şifreniz")
+  end
+
 end

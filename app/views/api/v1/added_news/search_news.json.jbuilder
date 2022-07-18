@@ -1,0 +1,1 @@
+json.news_data @search_result

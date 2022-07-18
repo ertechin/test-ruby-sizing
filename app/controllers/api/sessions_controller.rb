@@ -25,7 +25,10 @@ class Api::SessionsController < Devise::SessionsController
         }
       }
     end
+
+    User.save_token(params[:api_user][:email], current_token)
   end
+
   private
   def current_token
     request.env['warden-jwt_auth.token']

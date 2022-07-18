@@ -15,6 +15,7 @@ class ApiController < ApplicationController
     @current_user ||= warden.authenticate(scope: :api_user)
   end
 
+
   def check_auth
     auth_hash = request.headers["Authorization"]
     token = JWT.decode(auth_hash, ENV["DEVISE_JWT_SECRET_KEY"]) rescue nil
@@ -44,6 +45,4 @@ class ApiController < ApplicationController
       end
     end
   end
-
-
 end

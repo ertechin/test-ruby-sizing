@@ -17,4 +17,10 @@ class AddedNews < ApplicationRecord
       ActiveStorage::Attachment.find_by(id: image_id).update(position: params[:sort_image][index])
     end
   end
+
+  def self.search(params)
+      AddedNews.where("LOWER(title) LIKE LOWER('%#{params[:query]}%')")
+               .or(AddedNews.where("LOWER(description) LIKE LOWER('%#{params[:query]}%')"))
+               .or(AddedNews.where("LOWER(context) LIKE LOWER('%#{params[:query]}%')"))
+  end
 end

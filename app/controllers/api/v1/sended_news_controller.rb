@@ -1,4 +1,4 @@
-class Api::SendedNewsController < ApiController
+class Api::V1::SendedNewsController < ApiController
   respond_to :json
 
   def create_sended_news

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_26_210750) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_06_130628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,7 +63,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_210750) do
     t.string "description"
     t.string "title"
     t.string "tag"
-    t.string "images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "image_urls", default: [], array: true
@@ -113,7 +112,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_210750) do
     t.string "jti", null: false
     t.string "token"
     t.string "phone"
-    t.string "profile_image"
     t.string "full_name"
     t.string "job"
     t.string "city"
@@ -128,6 +126,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_210750) do
     t.string "kvkk_confirmed_date"
     t.string "password", default: ""
     t.string "jwt_token"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
