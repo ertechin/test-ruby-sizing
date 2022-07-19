@@ -3,7 +3,7 @@ json.user_id "#{@current_user.id}"
 json.email @current_user.email
 json.token @current_user.token
 json.phone @current_user.phone
-json.profile_image url_for(@current_user.profile_image)
+json.profile_image @user_image_url
 json.full_name @current_user.full_name
 json.job @current_user.job
 json.city @current_user.city

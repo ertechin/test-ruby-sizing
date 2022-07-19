@@ -34,7 +34,6 @@ class AddedNews < ApplicationRecord
         e.image_urls = return_urls
         res
       else
-        e.image_urls = ['hi']
         res
       end
     end
