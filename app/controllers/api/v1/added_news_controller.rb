@@ -3,14 +3,17 @@ class Api::V1::AddedNewsController < ApiController
   def take_news
     case params[:tag]
     when 'all'
-      @data = AddedNews.all
+      res = AddedNews.all
+      @data = AddedNews.result_modifier(res)
     else
-      @data = AddedNews.where(tag: params[:tag])
+      res = AddedNews.where(tag: params[:tag])
+      @data = AddedNews.result_modifier(res)
     end
   end
 
   def search_news
-    @search_result = AddedNews.search(params)
+    res = AddedNews.search(params)
+    @search_result = AddedNews.result_modifier(res)
   end
 
   def search_news_params

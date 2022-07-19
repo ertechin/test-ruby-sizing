@@ -23,4 +23,20 @@ class AddedNews < ApplicationRecord
                .or(AddedNews.where("LOWER(description) LIKE LOWER('%#{params[:query]}%')"))
                .or(AddedNews.where("LOWER(context) LIKE LOWER('%#{params[:query]}%')"))
   end
+
+  def self.result_modifier(res)
+    res.each do |e|
+      images_urls = ActiveStorage::Attachment.where(record_type: 'AddedNews', record_id: e.id)
+      if images_urls.any?
+        return_urls = images_urls.map do |image|
+          image.url
+        end
+        e.image_urls = return_urls
+        res
+      else
+        e.image_urls = ['hi']
+        res
+      end
+    end
+  end
 end
