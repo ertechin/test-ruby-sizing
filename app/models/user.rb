@@ -66,12 +66,26 @@ class User < ApplicationRecord
   end
 
   def self.search(params)
-    User.select(:email, :phone, :full_name, :job, :city, :country, :about, :g_year)
+    User.select(:email, :phone, :full_name, :job, :city, :country, :about, :g_year, :id)
         .where("LOWER(full_name) LIKE LOWER('%#{params[:query]}%')")
         .or(User.where("LOWER(job) LIKE LOWER('%#{params[:query]}%')"))
         .or(User.where("LOWER(city) LIKE LOWER('%#{params[:query]}%')"))
         .or(User.where("LOWER(country) LIKE LOWER('%#{params[:query]}%')"))
-        .and(User.where(contact_info: true))
+        .and(User.where(contact_info: true)).and(User.where(is_deleted: false))
+  end
+
+  def self.search_result_modifier(result)
+    result.as_json.map do |res|
+      image_result = ActiveStorage::Attachment.where(record_type: 'User', record_id: res['id'])
+      if image_result.any?
+        profile_image_url = image_result.map do |profile_image|
+          profile_image.url
+        end
+      else
+        profile_image_url=['https://gravatar.com/avatar/21db12591dfbe5681a31a09d4a6e258c?s=200&d=robohash&r=x']
+      end
+      res.merge!('profile_image'=>profile_image_url.first)
+    end
   end
 
   def self.update_contact_info(params)
