@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_06_130628) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_21_112202) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -122,7 +122,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_06_130628) do
     t.boolean "is_confirmed"
     t.boolean "mail_activeted"
     t.boolean "is_admin"
-    t.boolean "is_deleted"
+    t.boolean "is_deleted", default: false
     t.string "kvkk_confirmed_date"
     t.string "password", default: ""
     t.string "jwt_token"
