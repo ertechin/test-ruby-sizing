@@ -31,7 +31,8 @@ class Api::V1::UsersController < ApiController
     user = User.find_by(id: params[:api_user][:id])
     if user.contact_info
       @which_json = true
-      @search_result = User.search(search_user_params)
+      result = User.search(search_user_params)
+      @search_result = User.search_result_modifier(result)
     else
       @which_json = false
     end
