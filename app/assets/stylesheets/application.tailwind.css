@@ -12,6 +12,40 @@
 
 */
 
+@layer components {
+  .confirmation-card {
+    display: flex;
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  .confirmation-card-logo-wrapper {
+    flex-shrink: 0;
+  }
+  .confirmation-card-logo {
+    height: 8rem;
+    width: 8rem;
+  }
+  .confirmation-card-content {
+    margin-left: 1.5rem;
+    padding-top: 0.25rem;
+  }
+  .confirmation-card-title {
+    color: #1a202c;
+    font-size: 1.25rem;
+    line-height:2.25;
+  }
+  .confirmation-card-message {
+    color: #718096;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+
 input[type=text] {padding:5px; border:2px solid #ccc;
 -webkit-border-radius: 5px;
     border-radius: 5px;

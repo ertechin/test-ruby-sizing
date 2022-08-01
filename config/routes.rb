@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   # Devise (login/logout) for HTML requests
-  devise_for :users, defaults: { format: :html }
-
+  devise_for :users, defaults: { format: :html }, controllers: { confirmations: 'confirmations' }
+  get 'confirmation_is_complete', to: 'home#after_confirmation_path'
   # API namespace, for JSON requests at /api/sign_[in|out]
   namespace :api do
     devise_for :users, defaults: { format: :json },
