@@ -1,5 +1,10 @@
-<p>Welcome <%= @email %>!</p>
+<p>Merhaba <%= @resource.full_name %>'<%= @resource.g_year %>,</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>TAC Mezun Mobil uygulamasına kaydın için lütfen e-posta adresini doğrula:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= button_to 'E-posta adresini doğrula', confirmation_url(@resource, confirmation_token: @token), style: 'background-color: #ff0000;border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;' %></p>
+
+<p>Veya aşağıdaki bağlantıyı kopyalayarak tarayıcına yapıştırabilirsin:</p>
+
+<p><%=confirmation_url(@resource, confirmation_token: @token).to_s%></p>
+
