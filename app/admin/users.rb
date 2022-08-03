@@ -10,7 +10,9 @@ ActiveAdmin.register User do
     column :email
     column :phone
     column :g_year
-    column "Verified", :verified
+    column "Verified" do |user|
+      user.verified unless user.verified.nil?
+    end
     column :is_deleted
     actions
   end
@@ -24,7 +26,7 @@ ActiveAdmin.register User do
       row :phone
       row :g_year
       row "Verified" do |user|
-        user.verified
+        user.verified unless user.verified.nil?
       end
       panel "Onayla/Reddet" do
         columns do
