@@ -5,7 +5,7 @@ class Donation < ApplicationRecord
   end
 
   def self.biggest_five_donations
-    Donation.limit(5).order(donate_count: :desc)
+    Donation.limit(5).order(donate_count: :desc).reverse
   end
 
   def self.user_gyear_donations(params)
@@ -19,7 +19,7 @@ class Donation < ApplicationRecord
       e.merge!('donate_percent' => percent.truncate(2))
     end
     sorted_donations_array = donations_array.sort_by { |e| e['donate_percent'].to_f }
-    sorted_donations_array.last(10).reverse!
+    sorted_donations_array.last(10)
   end
 
 end
