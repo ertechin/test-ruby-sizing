@@ -68,7 +68,7 @@ class User < ApplicationRecord
   def self.search(params)
     User.select(:email, :phone, :full_name, :job, :city, :country, :about, :g_year, :id)
         .where("LOWER(full_name) LIKE LOWER('%#{params[:query]}%')")
-        .or(User.where("LOWER(job) LIKE LOWER('%#{params[:query]}%')"))
+        .or(User.where('cast(g_year as text) LIKE ?', "%#{params[:query]}%"))
         .or(User.where("LOWER(city) LIKE LOWER('%#{params[:query]}%')"))
         .or(User.where("LOWER(country) LIKE LOWER('%#{params[:query]}%')"))
         .and(User.where(contact_info: true)).and(User.where(is_deleted: false))
