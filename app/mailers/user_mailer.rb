@@ -1,11 +1,16 @@
 class UserMailer < ApplicationMailer
   default from: ENV["EMAIL_DOMAIN"]
 
-  def confirm_email
+  def verified_email
     @user = params[:user]
 
-    # @url = "#{root_url}/clinics/#{@user.clinic_id}/users/#{@user.id}/clinics_questions/#{@question.id}/edit"
-    mail(to: @user.email, subject: "TAC Email Onaylandı")
+    mail(to: @user.email, subject: "#{@user.full_name}'#{@user.g_year} : TAC Mezun Mobil kaydınız onaylandı")
+  end
+
+  def reject_email
+    @user = params[:user]
+
+    mail(to: @user.email, subject: "#{@user.full_name}'#{@user.g_year} : TAC Mezun Mobil kaydınız onaylanmadı")
   end
 
   def welcome_email

@@ -22,7 +22,7 @@ class User < ApplicationRecord
       phone: params[:phone],
       full_name: params[:full_name],
       g_year: params[:g_year],
-      is_confirmed: false,
+      verified: false,
       kvkk_confirmed_date: params[:kvkk_confirmed_date]
     )
     user.save!
@@ -97,8 +97,12 @@ class User < ApplicationRecord
     self.jti ||= SecureRandom.uuid
   end
 
-  def send_confirmed_email
-    UserMailer.with(user: self).send("confirm_email").deliver_now
+  def send_verified_email
+    UserMailer.with(user: self).send("verified_email").deliver_now
+  end
+
+  def send_reject_email
+    UserMailer.with(user: self).send("reject_email").deliver_now
   end
 
   def self.update_profile_image(params)

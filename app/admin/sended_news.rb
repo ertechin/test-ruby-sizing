@@ -12,6 +12,7 @@ ActiveAdmin.register SendedNews do
     column :tag
     column :date
     column :user_name
+    column :user_gyear
     actions
   end
 

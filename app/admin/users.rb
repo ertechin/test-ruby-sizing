@@ -10,7 +10,9 @@ ActiveAdmin.register User do
     column :email
     column :phone
     column :g_year
-    column "Confirmed", :is_confirmed
+    column "Verified" do |user|
+      user.verified unless user.verified.nil?
+    end
     column :is_deleted
     actions
   end
@@ -23,16 +25,22 @@ ActiveAdmin.register User do
       row :email
       row :phone
       row :g_year
-      row "Confirmed" do |user|
-        user.is_confirmed
+      row "Verified" do |user|
+        user.verified unless user.verified.nil?
       end
       panel "Onayla/Reddet" do
         columns do
-          column do
-            link_to "Onayla", confirm_admin_user_path(user)
-          end
-          column do
-            link_to "Reddet", reject_admin_user_path(user)
+          if user.confirmed?
+            column do
+              link_to "Onayla", confirm_admin_user_path(user)
+            end
+            column do
+              link_to "Reddet", reject_admin_user_path(user)
+            end
+          else
+            column do
+              "Kullanıcı henüz onaylanmadı."
+            end
           end
         end
       end
@@ -42,16 +50,17 @@ ActiveAdmin.register User do
   # confirm_admin_user_path
   member_action :confirm, method: :get do
     user = User.find params[:id]
-    user.send_confirmed_email if user.is_confirmed == false
-    user.update(is_confirmed: true)
+    user.send_verified_email
+    user.update(verified: true)
     user.update(is_deleted: false)
     redirect_to admin_users_path
   end
 
   member_action :reject, method: :get do
     user = User.find params[:id]
+    user.send_reject_email
     user.update(is_deleted: true)
-    user.update(is_confirmed: false)
+    user.update(verified: false)
     redirect_to admin_users_path
   end
 
