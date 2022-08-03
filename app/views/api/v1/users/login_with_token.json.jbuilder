@@ -10,6 +10,6 @@ json.city @current_user.city
 json.country @current_user.country
 json.about @current_user.about
 json.g_year "#{@current_user.g_year}"
-json.is_confirmed @current_user.is_confirmed
+json.verified @current_user.verified
 json.contact_info @current_user.contact_info
 end
