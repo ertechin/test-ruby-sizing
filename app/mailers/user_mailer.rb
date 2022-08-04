@@ -1,5 +1,4 @@
 class UserMailer < ApplicationMailer
-  default from: ENV["EMAIL_DOMAIN"]
 
   def verified_email
     @user = params[:user]
