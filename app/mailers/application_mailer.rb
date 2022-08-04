@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: ENV["EMAIL_DOMAIN"]
+  default from: email_address_with_name(ENV["EMAIL_DOMAIN"], "TAC Mezun Mobil")
   layout "mailer"
 end
