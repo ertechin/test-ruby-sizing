@@ -43,6 +43,12 @@
     font-size: 1rem;
     line-height: 1.5;
   }
+  .reset-password-button {
+    color: rgb(255 255 255);
+  }
+  .reset-password-fields {
+    border-radius: 0.5rem;
+  }
 }
 
 
