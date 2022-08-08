@@ -1,13 +1,14 @@
 class Api::V1::AddedNewsController < ApiController
-
+  include Pagy::Backend
+  after_action { pagy_headers_merge(@pagy_a) if @pagy_a }
   def take_news
     case params[:tag]
     when 'all'
       res = AddedNews.all
-      @data = AddedNews.result_modifier(res)
+      @pagy_a, @data = pagy_array(AddedNews.result_modifier(res))
     else
       res = AddedNews.where(tag: params[:tag])
-      @data = AddedNews.result_modifier(res)
+      @pagy_a, @data = pagy_array(AddedNews.result_modifier(res))
     end
   end
 
