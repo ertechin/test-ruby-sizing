@@ -78,3 +78,4 @@ end
 gem "devise", "~> 4.8", ">= 4.8.0"
 gem "devise-jwt"
 gem "activeadmin"
+gem 'pagy', "~> 5.10"

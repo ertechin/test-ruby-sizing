@@ -9,6 +9,11 @@ class User < ApplicationRecord
 
   validate :acceptable_image
 
+  def self.verified(email)
+    user = User.find_by(email:)
+    user.verified ? true : false
+  end
+
   def self.save_token(email, current_token)
     user = User.find_by(email:)
     user.update(token: current_token)
