@@ -5,4 +5,6 @@ class HomeController < ApplicationController
   end
   def after_confirmation_path
   end
+  def completed_reset_password_path
+  end
 end
