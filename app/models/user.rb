@@ -76,7 +76,7 @@ class User < ApplicationRecord
         .or(User.where('cast(g_year as text) LIKE ?', "%#{params[:query]}%"))
         .or(User.where("LOWER(city) LIKE LOWER('%#{params[:query]}%')"))
         .or(User.where("LOWER(country) LIKE LOWER('%#{params[:query]}%')"))
-        .and(User.where(contact_info: true)).and(User.where(is_deleted: false))
+        .and(User.where(contact_info: true)).and(User.where(is_deleted: false)).and(User.where(verified: true))
   end
 
   def self.search_result_modifier(result)
