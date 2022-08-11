@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   has_one_attached :profile_image
+  has_many :contact_info_logs
 
   validate :acceptable_image
 
@@ -84,7 +85,7 @@ class User < ApplicationRecord
       image_result = ActiveStorage::Attachment.where(record_type: 'User', record_id: res['id'])
       if image_result.any?
         profile_image_url = image_result.map do |profile_image|
-          profile_image.url
+          profile_image.variant(saver: { quality: 5 }).url
         end
       else
         profile_image_url=['https://gravatar.com/avatar/21db12591dfbe5681a31a09d4a6e258c?s=200&d=robohash&r=x']

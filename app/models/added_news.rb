@@ -29,7 +29,7 @@ class AddedNews < ApplicationRecord
       images_urls = ActiveStorage::Attachment.where(record_type: 'AddedNews', record_id: e.id)
       if images_urls.any?
         return_urls = images_urls.map do |image|
-          image.url
+          image.variant(saver: { quality: 5 }).url
         end
         e.image_urls = return_urls
         res
