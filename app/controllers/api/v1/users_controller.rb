@@ -4,7 +4,7 @@ class Api::V1::UsersController < ApiController
 
   def login_with_token
     @user_image_url = if current_user.profile_image.attached?
-                        url_for(current_user.profile_image)
+                        url_for(current_user.profile_image.variant(saver: { quality: 5 }))
                       else
                         'https://gravatar.com/avatar/21db12591dfbe5681a31a09d4a6e258c?s=200&d=robohash&r=x'
                       end
@@ -40,6 +40,7 @@ class Api::V1::UsersController < ApiController
 
   def update_contact_info
     User.update_contact_info(update_contact_info_params)
+    ContactInfoLog.create_contact_info_log(update_contact_info_params)
   end
 
   def upload_profile_image
