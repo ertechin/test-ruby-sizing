@@ -40,6 +40,7 @@ class Api::V1::UsersController < ApiController
 
   def update_contact_info
     User.update_contact_info(update_contact_info_params)
+    ContactInfoLog.create_contact_info_log(update_contact_info_params)
   end
 
   def upload_profile_image

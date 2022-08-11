@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   has_one_attached :profile_image
+  has_many :contact_info_logs
 
   validate :acceptable_image
 
