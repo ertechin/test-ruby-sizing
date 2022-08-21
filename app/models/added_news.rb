@@ -34,6 +34,18 @@ class AddedNews < ApplicationRecord
         e.image_urls = return_urls
         res
       else
+        case e.tag
+        when 'Vefat Haberi'
+          puts 
+          place_holder_url=[ENV['HOST'] + ActionController::Base.helpers.asset_url('place-holder-vefat.png')]
+          e.image_urls = place_holder_url
+        when 'Etkinlik'
+          place_holder_url=[ENV['HOST'] + ActionController::Base.helpers.asset_url('place-holder-etkinlik.png')]
+          e.image_urls = place_holder_url
+        when 'Güzel Haber'
+          place_holder_url=[ENV['HOST'] + ActionController::Base.helpers.asset_url('place-holder-guzel.png')]
+          e.image_urls = place_holder_url
+        end
         res
       end
     end
