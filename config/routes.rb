@@ -34,6 +34,7 @@ Rails.application.routes.draw do
           resources :donations
           post '/takeDonations', to: 'donations#take_donations'
           resources :users
+          post '/deleteUserAccount', to: 'users#delete_user_account'
           post '/updateContactInfo', to: 'users#update_contact_info'
           post '/users/search', to: 'users#search_user'
           post '/updateUser', to: 'users#update_user_info'

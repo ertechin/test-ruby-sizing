@@ -11,6 +11,12 @@ class Api::V1::UsersController < ApiController
     @current_user = current_user
   end
 
+  def delete_user_account
+    ContactInfoLog.where(user_id: params[:id]).destroy_all
+    User.find_by(id: params[:id]).destroy
+    AdminMailer.after_user_delete_account(params[:userComment]).deliver_now
+  end
+
   def register
     @create_user_status = User.create_user(register_params)
   end
