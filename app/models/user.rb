@@ -11,7 +11,13 @@ class User < ApplicationRecord
   validate :acceptable_image
 
   def self.delete_user(params)
-    User.find_by(id: params[:id]).destroy
+    user = User.find_by(id: params[:id])
+    if (!user.nil?)
+      user.destroy
+      internal_api_status = 'ok'
+    else
+      internal_api_status = 'user_is_not_exists'
+    end
   end
 
   def self.verified(email)
