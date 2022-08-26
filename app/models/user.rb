@@ -6,9 +6,19 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   has_one_attached :profile_image
-  has_many :contact_info_logs
+  has_many :contact_info_logs, dependent: :destroy
 
   validate :acceptable_image
+
+  def self.delete_user(params)
+    user = User.find_by(id: params[:id])
+    if (user.present?)
+      user.destroy
+      internal_api_status = 'ok'
+    else
+      internal_api_status = 'user_is_not_exists'
+    end
+  end
 
   def self.verified(email)
     user = User.find_by(email:)

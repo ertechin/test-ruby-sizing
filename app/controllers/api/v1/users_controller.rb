@@ -11,6 +11,11 @@ class Api::V1::UsersController < ApiController
     @current_user = current_user
   end
 
+  def delete_user_account
+    @internal_api_status = User.delete_user(params)
+    AdminMailer.after_user_delete_account(params[:userComment]).deliver_now
+  end
+
   def register
     @create_user_status = User.create_user(register_params)
   end
