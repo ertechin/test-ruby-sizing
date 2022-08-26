@@ -12,8 +12,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def delete_user_account
-    ContactInfoLog.where(user_id: params[:id]).destroy_all
-    User.find_by(id: params[:id]).destroy
+    User.delete_user(params)
     AdminMailer.after_user_delete_account(params[:userComment]).deliver_now
   end
 
