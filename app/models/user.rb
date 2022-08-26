@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   def self.delete_user(params)
     user = User.find_by(id: params[:id])
-    if (!user.nil?)
+    if (user.present?)
       user.destroy
       internal_api_status = 'ok'
     else
