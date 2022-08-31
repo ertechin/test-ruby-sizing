@@ -13,7 +13,7 @@ class Api::V1::UsersController < ApiController
 
   def delete_user_account
     @internal_api_status = User.delete_user(params)
-    AdminMailer.after_user_delete_account(params[:userComment]).deliver_now
+    AdminMailer.after_user_delete_account(params).deliver_now
   end
 
   def register
