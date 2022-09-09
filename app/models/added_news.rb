@@ -25,29 +25,39 @@ class AddedNews < ApplicationRecord
   end
 
   def self.result_modifier(res)
-    res.each do |e|
-      images_urls = ActiveStorage::Attachment.where(record_type: 'AddedNews', record_id: e.id)
+    res.as_json.each do |e|
+      images_urls = ActiveStorage::Attachment.where(record_type: 'AddedNews', record_id: e['id'])
       if images_urls.any?
+        array = []
         return_urls = images_urls.map do |image|
+          puts image.blob.metadata
+          array.push(AddedNews.find_aspect_ratio(image))
           image.url
         end
-        e.image_urls = return_urls
-        res
+        e['image_urls'] = return_urls
+        e.merge!('aspect_ratio' => array.min < 0.8 ? 0.8 : array.min)
       else
-        case e.tag
+        case e['tag']
         when 'Vefat Haberi'
           puts 
           place_holder_url=[ENV['HOST'] + ActionController::Base.helpers.asset_url('place-holder-vefat.png')]
-          e.image_urls = place_holder_url
+          e['image_urls'] = place_holder_url
         when 'Etkinlik'
           place_holder_url=[ENV['HOST'] + ActionController::Base.helpers.asset_url('place-holder-etkinlik.png')]
-          e.image_urls = place_holder_url
+          e['image_urls'] = place_holder_url
         when 'Güzel Haber'
           place_holder_url=[ENV['HOST'] + ActionController::Base.helpers.asset_url('place-holder-guzel.png')]
-          e.image_urls = place_holder_url
+          e['image_urls'] = place_holder_url
         end
-        res
+        e.merge!('aspect_ratio' => 0.8)
       end
+    end
+  end
+
+  def self.find_aspect_ratio(image)
+    if image.analyzed? && image.blob.metadata['width'].to_i > 1
+    ratio =  image.blob.metadata['width'].to_i / image.blob.metadata['height'].to_f
+    ratio
     end
   end
 end
