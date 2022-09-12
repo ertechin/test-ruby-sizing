@@ -37,5 +37,8 @@ pipelines:
       - step:
           name: "Run heroku command"
           script:
+            - apt-get clean
+            - apt-get update
+            - apt-get install dpkg
             - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
             - heroku $CUSTOM_COMMAND --app tac-ruby
