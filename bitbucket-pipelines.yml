@@ -41,4 +41,4 @@ pipelines:
             - apt-get update
             - apt-get install dpkg
             - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-            - heroku $CUSTOM_COMMAND --app tac-ruby
+            - heroku $CUSTOM_COMMAND
