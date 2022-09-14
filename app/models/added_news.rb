@@ -5,7 +5,7 @@ class AddedNews < ApplicationRecord
 
   after_create :update_images_urls
 
-  after_save :send_news_notification
+  after_commit :send_news_notification
 
   attr_accessor :sort_image
 
