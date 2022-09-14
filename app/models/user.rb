@@ -20,6 +20,12 @@ class User < ApplicationRecord
     end
   end
 
+  def self.save_fcm_registration_id(params)
+    user = User.find_by(id: params[:id])
+    user.update(fcm_registration_id: params[:fcm_token])
+    internal_api_status = 'ok'
+  end
+
   def self.verified(email)
     user = User.find_by(email:)
     user.verified ? true : false
