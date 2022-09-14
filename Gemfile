@@ -79,3 +79,4 @@ gem "devise", "~> 4.8", ">= 4.8.0"
 gem "devise-jwt"
 gem "activeadmin"
 gem 'pagy', "~> 5.10"
+gem 'httparty', '~> 0.20.0'
