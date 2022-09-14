@@ -29,11 +29,13 @@ Rails.application.routes.draw do
           post "/send_email", to: "users#send_email"
 
           resources :added_news
+          post '/news/notification', to: 'added_news#send_notificaton_news'
           post '/news/search', to: 'added_news#search_news'
           post '/takeNews', to: 'added_news#take_news'
           resources :donations
           post '/takeDonations', to: 'donations#take_donations'
           resources :users
+          post '/save/fcmRegistrationId', to: 'users#save_fcm_registration_id'
           post '/deleteUserAccount', to: 'users#delete_user_account'
           post '/updateContactInfo', to: 'users#update_contact_info'
           post '/users/search', to: 'users#search_user'

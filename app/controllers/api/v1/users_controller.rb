@@ -11,6 +11,10 @@ class Api::V1::UsersController < ApiController
     @current_user = current_user
   end
 
+  def save_fcm_registration_id
+    @internal_api_status = User.save_fcm_registration_id(save_fcm_registration_id_params)
+  end
+
   def delete_user_account
     @internal_api_status = User.delete_user(params)
     AdminMailer.after_user_delete_account(params).deliver_now
@@ -96,5 +100,11 @@ class Api::V1::UsersController < ApiController
 
   def search_user_params
     params.require(:api_user).permit(:id, :query)
+  end
+
+  private
+
+  def save_fcm_registration_id_params
+    params.require(:api_user).permit(:id, :fcm_token)
   end
 end
