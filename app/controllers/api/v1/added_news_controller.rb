@@ -20,4 +20,8 @@ class Api::V1::AddedNewsController < ApiController
   def search_news_params
     params.require(:api_news).permit(:query)
   end
+
+  def send_notificaton_news
+    @notification_news = AddedNews.find_notificaton_news(params)
+  end
 end
