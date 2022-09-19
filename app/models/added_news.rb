@@ -28,7 +28,7 @@ class AddedNews < ApplicationRecord
     response = HTTParty.post(
       "https://fcm.googleapis.com/fcm/send",
       :body => {
-        :data => {:id => self.id },
+        :data => {:news_id => self.id },
         :to => "/topics/#{tag}",
         :notification => {
           :body => self.description,
