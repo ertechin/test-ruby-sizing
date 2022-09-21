@@ -51,19 +51,31 @@ class AddedNews < ApplicationRecord
   end
 
   def self.result_modifier(res)
-    res.each do |e|
+    res.as_json.each do |e|
      AddedNews.result_modifier_single_data(e)
     end
   end
   
   def self.result_modifier_single_data(data)
-    images_urls = AddedNews.find_attachment(data)
-    data.image_urls = AddedNews.create_image_url(images_urls,data.tag)
-    data
+    images_urls = AddedNews.find_attachment(data['id'])
+    data['image_urls'] = AddedNews.create_image_url(images_urls,data['tag'])
+    data.merge!('aspect_ratio' => AddedNews.create_aspect(image_urls))
   end
   
-  def self.find_attachment(data)
-    ActiveStorage::Attachment.where(record_type: 'AddedNews', record_id: data.id)
+  def self.find_attachment(id)
+    ActiveStorage::Attachment.where(record_type: 'AddedNews', record_id: id)
+  end
+
+  def self.create_aspect(images_urls)
+   if images_urls.any?
+    array = []
+    images_urls.map do |image|
+      array.push(AddedNews.find_aspect_ratio(image))
+    end
+    array.min
+   else
+    0.8
+   end
   end
 
   def self.create_image_url(images_urls,tag)
@@ -80,6 +92,13 @@ class AddedNews < ApplicationRecord
       when 'Güzel Haber'
         place_holder_url=[ENV['HOST'] + ActionController::Base.helpers.asset_url('place-holder-guzel.png')]
       end
+    end
+  end
+
+  def self.find_aspect_ratio(image)
+    if image.analyzed? && image.blob.metadata['width'].to_i > 1
+    ratio =  image.blob.metadata['width'].to_i / image.blob.metadata['height'].to_f
+    ratio
     end
   end
 
