@@ -1,3 +1,6 @@
 # AptFile
 # You can write comments in this file.
 libvips-tools
+libvips-dev
+libvips-doc
+libvips42

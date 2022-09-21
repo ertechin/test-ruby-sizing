@@ -35,12 +35,7 @@ class AddedNews < ApplicationRecord
           image.url
         end
         e['image_urls'] = return_urls
-        if (array.min < 0.8 )
-          test_value = 0.8
-        else
-          test_value = array.min
-        end
-        e.merge!('aspect_ratio' => test_value)
+        e.merge!('aspect_ratio' => array.min < 0.8 ? 0.8 : array.min)
       else
         case e['tag']
         when 'Vefat Haberi'
