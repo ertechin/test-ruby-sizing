@@ -59,20 +59,21 @@ class AddedNews < ApplicationRecord
   def self.result_modifier_single_data(data)
     images_urls = AddedNews.find_attachment(data['id'])
     data['image_urls'] = AddedNews.create_image_url(images_urls,data['tag'])
-    data.merge!('aspect_ratio' => AddedNews.create_aspect(image_urls))
+    data.merge!('aspect_ratio' => AddedNews.create_aspect_ratio(images_urls))
+    data
   end
   
   def self.find_attachment(id)
     ActiveStorage::Attachment.where(record_type: 'AddedNews', record_id: id)
   end
 
-  def self.create_aspect(images_urls)
+  def self.create_aspect_ratio(images_urls)
    if images_urls.any?
     array = []
     images_urls.map do |image|
       array.push(AddedNews.find_aspect_ratio(image))
     end
-    array.min
+    array.min < 0.8 ? 0.8 : array.min
    else
     0.8
    end
@@ -99,11 +100,13 @@ class AddedNews < ApplicationRecord
     if image.analyzed? && image.blob.metadata['width'].to_i > 1
     ratio =  image.blob.metadata['width'].to_i / image.blob.metadata['height'].to_f
     ratio
+    else
+      ratio = 0.8
     end
   end
 
   def self.find_notificaton_news(params)
     res = AddedNews.find_by(id: params[:id])
-    AddedNews.result_modifier_single_data(res)
+    AddedNews.result_modifier_single_data(res.as_json)
   end
 end
